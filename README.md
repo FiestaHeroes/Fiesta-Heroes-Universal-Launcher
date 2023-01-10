@@ -1,7 +1,8 @@
 <h1 align="center">
   Fiesta Heroes
-
+  <br>
   Universal Launcher <img src="https://i.imgur.com/KuPp7CR.png" width = "32" height="32"></a>
+  <br>  
   <img src="https://i.imgur.com/0GOTzNm.gif"></a>
   <h5><center>Built with <a href="https://github.com/adamhathcock/sharpcompress">SharpCompress</a> and <a href="https://github.com/MarioZ/MadMilkman.Ini">MadMilkman.Ini</a></center></h5>
 </h1>
