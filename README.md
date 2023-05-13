@@ -19,7 +19,7 @@
 
 ## Requirements
 
-To make your patch archives accessible to the public, you'll require a web server of some kind. This may include a VPS, dedicated server, cPanel, web storage, or even an FTP server. The crucial aspect is that you have a publicly accessible server to download your patches from, and that your application can read your server-side configuration file in the .ini format.
+To make your patch archives accessible to the public, you'll require a web server of some kind. This may include a VPS, dedicated server, cPanel, web storage, or even an FTP server. The crucial aspect is that you have a publicly accessible server to download your patches from, and that the application can read your server-side configuration file in the .ini format.
 
 When using IIS as your web server, it is necessary to create a **MIME TYPE** entry for both the .INI file and .RAR archive.
 
@@ -104,7 +104,7 @@ MaintenanceMode=0
 ```
 #### Notes:
 Ensure to maintain the identical folder structure as your client when creating your patch archive.
-Suppose you intend to patch the ```ItemInfo.shn file```, for instance. In that case, you must ensure that your patch1.rar file appears as follows: ```ressystem/ItemInfo.shn```.
+Suppose you intend to patch the ```ItemInfo.shn``` file, for instance. In that case, you must ensure that your patch1.rar (Example) file appears as follows: ```ressystem/ItemInfo.shn```.
 
 Also, if you don't know how to enable RAR4 compression, here is a quick [tutorial](https://techdows.com/2017/08/winrar-use-rar4-format-default-instead-rar-5-0.html).
 
