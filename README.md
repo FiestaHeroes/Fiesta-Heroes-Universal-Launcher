@@ -1,4 +1,5 @@
 <h1 align="center">
+
   Fiesta Heroes
   <br>
   Universal Launcher <img src="https://i.imgur.com/KuPp7CR.png" width = "32" height="32"></a>
@@ -12,30 +13,41 @@
 *   Works with all of our sets. TW2008, CN2012 and NA2016.
 *   Extremely easy to setup without any coding knowledge.
 *   Automatically check, download and extract patch archives.
-*   Server & client configuration files.
-*   The ability to change the application settings from the server-side configuration, without having to distribute a new executable.
-*   Maintenance mode. You can disable the start button from the server-side configuration.
+*   Includes both server and client configuration files.
+*   Allows modification of application settings through server-side configuration, eliminating the need to distribute a new executable.
+*   Features a maintenance mode that can deactivate the start button through the server-side configuration.
 
 ## Requirements
 
-You will need some type of web server to publicly host your patch archives. This can be a VPS, dedicated, cpanel, web storage or even a FTP server. Just something you can publicly download your patches from, and the application can parse your server-side configuration (.ini) file. 
+To make your patch archives accessible to the public, you'll require a web server of some kind. This may include a VPS, dedicated server, cPanel, web storage, or even an FTP server. The crucial aspect is that you have a publicly accessible server to download your patches from, and that your application can read your server-side configuration file in the .ini format.
+
+When using IIS as your web server, it is necessary to create a **MIME TYPE** entry for both the .INI file and .RAR archive.
+
+```bash
+.INI
+text/plain
+
+.RAR
+application/x-rar-compressed
+```
+
 
 ## Setup Information
 
 #### Client Setup:
-The following files will need to be in your root directory of the client.
+You will need to place the following files in the root directory of your client.
 ```bash
 FiestaHeroes_UL.exe
 MadMilkman.Ini.dll
 SharpCompress.dll
 ```
 
-Next, you will need to copy this folder into your root directory as well. Please keep the folder structure the same, so just copy & paste the folder.
+Afterward, you must also copy this folder into your root directory, ensuring that you maintain the folder structure by copying and pasting the folder.
 ```bash
 reslauncher/launcher.ini
 ```
 
-Now, let's edit your launcher.ini file:
+We will now proceed to edit your launcher.ini file:
 ```bash
 [Setup]
 PatchServerLocation=http://127.0.0.1/
@@ -49,25 +61,26 @@ PatchServerLocation=http://fiestaheroes.com/
 ```
 
 #### Server Setup:
-Open your wwwroot folder, and copy & paste the contents of the folder into your root directory of the web server.
-Patch archives by default go into ```/patches```. This location can be changed in the server-side configuration file.
+Navigate to your wwwroot folder and copy the contents of the folder. Paste the copied files into the root directory of your web server. By default, patch archives are stored in the ```/patches``` directory, although this location can be modified in the server-side configuration file.
 
 Next, open your ```Config.ini``` file. Comments have been made to help explain what each section is for.
 ```bash
 [Application Settings]
 Name=FH: Universal Launcher
+
 ; Image resolution: 500x95
 Banner=https://i.imgur.com/76k1Wav.jpg
 
 [Archive Settings]
-; FileName is the beginning of the archive. When you create your patches, include the version afterwards. Example: patch1.rar 
+; The FileName pertains to the start of the archive name. When creating your patches, append the version number after the FileName. For instance: patch1.rar. 
 FileName=patch
-; The archive must be built with RAR4 (The option can be ticked in WinRar when building)
-; You can technically make this whatever extension you like, while making sure it's still built with the RAR4 format. So, it can be .xkl for example.
+
+; When creating the archive, it is essential to use RAR4 format (This option can be selected in WinRAR during the creation of the archive).
+; Technically, you can assign any file extension of your preference, as long as it's still created with the RAR4 format. For instance, you may choose to use ".xkl" as an extension.
 Extension=.rar
 
 [Version]
-; Version control for your patch files. So, if you have following: patch1.rar, patch2.rar and patch3.rar your version would be 3.
+; This pertains to version control for your patch files. For instance, if you have the following patch files: patch1.rar, patch2.rar, and patch3.rar, then your version number would be 3.
 ; Example: PatchVersion=3
 PatchVersion=0
 
@@ -85,15 +98,15 @@ File=Fiesta.bin
 Location=patches
 
 [Control]
-; Change this to disable the start button during your server maintenance.
+; Modify this setting to deactivate the start button while performing maintenance on your server.
 ; 1 = Maintenance mode is enabled.
 MaintenanceMode=0
 ```
-> **Notes:**
-> When creating your patch archive, please make sure to keep the same folder structure as your client.
-> Let's say you're going to patch the ItemInfo.shn file for example. You want your patch1.rar to look like this: ```ressystem/ItemInfo.shn```
->
-> Also, if you don't know how to enable RAR4 compression, here is a quick [tutorial](https://techdows.com/2017/08/winrar-use-rar4-format-default-instead-rar-5-0.html).
+#### Notes:
+Ensure to maintain the identical folder structure as your client when creating your patch archive.
+Suppose you intend to patch the ```ItemInfo.shn file```, for instance. In that case, you must ensure that your patch1.rar file appears as follows: ```ressystem/ItemInfo.shn```.
+
+Also, if you don't know how to enable RAR4 compression, here is a quick [tutorial](https://techdows.com/2017/08/winrar-use-rar4-format-default-instead-rar-5-0.html).
 
 <h2 align="center">
   <br>
