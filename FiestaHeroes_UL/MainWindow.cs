@@ -15,6 +15,7 @@ namespace FiestaLauncher
     {
         public MainWindow()
         {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
             InitializeComponent();
         }
 
