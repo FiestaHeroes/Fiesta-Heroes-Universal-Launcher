@@ -50,6 +50,8 @@ reslauncher/launcher.ini
 We will now proceed to edit your launcher.ini file:
 ```bash
 [Setup]
+; Ensure that you include a forward slash, "/" at the end of your URL.
+; Example: http://192.168.1.100:8080/
 PatchServerLocation=http://127.0.0.1/
 PatchVersion=0
 ```
@@ -69,7 +71,8 @@ Next, open your ```Config.ini``` file. Comments have been made to help explain w
 Name=FH: Universal Launcher
 
 ; Image resolution: 500x95
-Banner=https://archive.fiestaheroes.com/Fiesta/Files/Misc/FHUL.jpg
+; If this URL becomes invalid, the launcher will not display any image.
+Banner=https://archive.fiestaheroes.com/_Tools/fhul/fhul.jpg
 
 [Archive Settings]
 ; The FileName pertains to the start of the archive name. When creating your patches, append the version number after the FileName. For instance: patch1.rar. 

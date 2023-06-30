@@ -67,7 +67,15 @@ namespace FiestaLauncher
 
             // Banner image. Your server logo for example. 
             // Image resolution: 500x95
-            BannerImage.Image = new Bitmap(new MemoryStream(WC.DownloadData(ServerSettingsBanner)));
+            try
+            {
+                BannerImage.Image = new Bitmap(new MemoryStream(WC.DownloadData(ServerSettingsBanner)));
+            }
+            catch
+            {
+                MessageBox.Show($"Oops, having trouble loading your banner image from {ServerSettingsBanner}!");
+                BannerImage.Image = null;
+            }
 
             // Slight delay for calling the update section. Delay is not needed. But, I like it.
             await Task.Delay(300);
@@ -103,7 +111,7 @@ namespace FiestaLauncher
                     WC.DownloadProgressChanged += UpdateDL_ProgressChanged;
                     await WC.DownloadFileTaskAsync(new Uri($"{ServerIP}{ServerPatchDownloadDIR}/{ServerFileName}{Client}{ServerExtension}"), $"./{ServerFileName}{Client}{ServerExtension}");
 
-                    ChangeLine($"PatchVersion={Client}", "./reslauncher/launcher.ini", 3);
+                    ChangeLine($"PatchVersion={Client}", "./reslauncher/launcher.ini", 5);
 
                     IArchive archive = ArchiveFactory.Open($"{ServerFileName}{Client}{ServerExtension}");
                     foreach (var entry in archive.Entries)
