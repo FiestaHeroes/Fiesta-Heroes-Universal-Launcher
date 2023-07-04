@@ -16,6 +16,10 @@
 *   Includes both server and client configuration files.
 *   Allows modification of application settings through server-side configuration, eliminating the need to distribute a new executable.
 *   Features a maintenance mode that can deactivate the start button through the server-side configuration.
+*   Features the ability to reset the patch version.
+*   Features the ability to optimize the client by selectively disabling certain files, typically .nif files, in order to mitigate in-game lag. The list of files can be modified and updated as desired.
+*   Features the ability to delete specific files. This is useful, especially when you accidentally patch a server-side file, such as 'IteminfoServer.shn.' Additionally, you can also add and update files to the list.
+*   Features the ability to perform integrity checks. By using this, a player can better pinpoint the source of a possible "Client Manipulation" error.
 
 ## Requirements
 
@@ -101,9 +105,30 @@ File=Fiesta.bin
 Location=patches
 
 [Control]
-; Modify this setting to deactivate the start button while performing maintenance on your server.
-; 1 = Maintenance mode is enabled.
+; Modify this setting to deactivate the start button while performing maintenance on your server. 0 = Disabled, 1 = Enabled.
 MaintenanceMode=0
+; Modify this setting to enable the utilization of the integrity check. This will use MD5 for comparing specified file hashes. 0 = Disabled, 1 = Enabled.
+IntegrityCheck=0
+; Modify this setting to enable file deletion. This is useful if you accidentally patch over a server-side file. 0 = Disabled, 1 = Enabled.
+DeleteFiles=0
+
+; By using this, a player can better pinpoint the source of a possible "Client Manipulation" error.
+; Use the file path you would like to check. I have some listed examples below. This list can be updated as well, while following the same format.
+; Additionally, it is important to maintain the order of hashes when checking. Therefore, the first line in this section will correspond to the first line within "[IntegrityCheckHash]".
+[IntegrityCheckFile]
+File=Fiesta.bin
+File=ressystem/ItemInfo.shn
+
+; Please remember to update these hash values whenever you have patched or updated a file. Failure to do so will result in a failed check.
+; Ensure to adhere to the specified order outlined in the section "[IntegrityCheckFile]". This ensures that the file and its corresponding hash align with each other.
+[IntegrityCheckHash]
+Hash=BF4863931D313D93C7D75DB046CF8DD3
+Hash=6538C804723B5BE52F49ED9C06EB7D09
+
+; Example files you can have deleted. This list can be updated as well, while following the same format.
+[DeleteFiles]
+File=ressystem/IteminfoServer.shn
+File=ressystem/MobInfoServer.shn
 ```
 #### Notes:
 Ensure to maintain the identical folder structure as your client when creating your patch archive.

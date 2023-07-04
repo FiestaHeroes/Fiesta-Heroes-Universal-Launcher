@@ -38,6 +38,7 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.StartButton = new System.Windows.Forms.Button();
+            this.OptionsButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.BannerImage)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -122,7 +123,7 @@
             // StartButton
             // 
             this.StartButton.Enabled = false;
-            this.StartButton.Location = new System.Drawing.Point(413, 213);
+            this.StartButton.Location = new System.Drawing.Point(332, 213);
             this.StartButton.Name = "StartButton";
             this.StartButton.Size = new System.Drawing.Size(75, 23);
             this.StartButton.TabIndex = 7;
@@ -130,11 +131,23 @@
             this.StartButton.UseVisualStyleBackColor = true;
             this.StartButton.Click += new System.EventHandler(this.StartButton_Click);
             // 
+            // OptionsButton
+            // 
+            this.OptionsButton.Enabled = false;
+            this.OptionsButton.Location = new System.Drawing.Point(413, 213);
+            this.OptionsButton.Name = "OptionsButton";
+            this.OptionsButton.Size = new System.Drawing.Size(75, 23);
+            this.OptionsButton.TabIndex = 8;
+            this.OptionsButton.Text = "Options";
+            this.OptionsButton.UseVisualStyleBackColor = true;
+            this.OptionsButton.Click += new System.EventHandler(this.OptionsButton_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(500, 269);
+            this.Controls.Add(this.OptionsButton);
             this.Controls.Add(this.StartButton);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.groupBox1);
@@ -166,6 +179,7 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.Button StartButton;
+        private System.Windows.Forms.Button OptionsButton;
     }
 }
 

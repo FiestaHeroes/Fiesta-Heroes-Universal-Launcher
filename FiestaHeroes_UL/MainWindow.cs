@@ -1,4 +1,5 @@
-﻿using MadMilkman.Ini;
+﻿using FiestaHeroes_UL;
+using MadMilkman.Ini;
 using SharpCompress.Archive;
 using SharpCompress.Common;
 using System;
@@ -25,33 +26,25 @@ namespace FiestaLauncher
         IniFile LocalINI = new IniFile();
         IniFile ServerINI = new IniFile();
 
+        // Check for required files. Decided to use an array since the list was getting bigger, and it looked bulky having so many individual checks. Also, using this for the strings as well.
+        string[] RequiredFiles =
+        {
+            "MadMilkman.Ini.dll", "SharpCompress.dll", "./reslauncher/launcher.ini", "./reslauncher/optimize.ini"
+        };
+
         private async void MainWindow_LoadAsync(object sender, EventArgs e)
         {
-            // Check for required files.
-
-            // This library is used to read/write the .ini configuration files.
-            if (!File.Exists("MadMilkman.Ini.dll"))
+            foreach (string file in RequiredFiles)
             {
-                MessageBox.Show("Oops, MadMilkman.Ini.dll is missing. Please contact your Administrator.");
-                Application.Exit();
-            }
-
-            // This library is used to extract our .rar archive.
-            if (!File.Exists("SharpCompress.dll"))
-            {
-                MessageBox.Show("Oops, SharpCompress.dll is missing. Please contact your Administrator.");
-                Application.Exit();
-            }
-
-            // The location of the client-side configuration.
-            if (!File.Exists("./reslauncher/launcher.ini"))
-            {
-                MessageBox.Show("Oops, launcher.ini is missing. Please contact your Administrator.");
-                Application.Exit();
+                if (!File.Exists(file))
+                {
+                    MessageBox.Show($"Oops, {file} is missing. Please contact your Administrator.");
+                    Application.Exit();
+                }
             }
 
             // Local configuration file.
-            LocalINI.Load("./reslauncher/launcher.ini");
+            LocalINI.Load(RequiredFiles[2]);
             string ServerIP = LocalINI.Sections[0].Keys[0].Value;
 
             // Server configuration file.
@@ -61,7 +54,7 @@ namespace FiestaLauncher
 
             // Application Settings.
             // This is read from your server configuration file.
-            
+
             // Window title. Your server name for example.
             Text = ServerSettingsWindowTitle;
 
@@ -73,7 +66,7 @@ namespace FiestaLauncher
             }
             catch
             {
-                MessageBox.Show($"Oops, having trouble loading your banner image from {ServerSettingsBanner}!");
+                MessageBox.Show($"Oops, having trouble loading your banner image from {ServerSettingsBanner}.");
                 BannerImage.Image = null;
             }
 
@@ -111,7 +104,7 @@ namespace FiestaLauncher
                     WC.DownloadProgressChanged += UpdateDL_ProgressChanged;
                     await WC.DownloadFileTaskAsync(new Uri($"{ServerIP}{ServerPatchDownloadDIR}/{ServerFileName}{Client}{ServerExtension}"), $"./{ServerFileName}{Client}{ServerExtension}");
 
-                    ChangeLine($"PatchVersion={Client}", "./reslauncher/launcher.ini", 5);
+                    ChangeLine($"PatchVersion={Client}", RequiredFiles[2], 5);
 
                     IArchive archive = ArchiveFactory.Open($"{ServerFileName}{Client}{ServerExtension}");
                     foreach (var entry in archive.Entries)
@@ -161,7 +154,24 @@ namespace FiestaLauncher
             FileNameLabel.ForeColor = Color.Green;
             FileNameLabel.Text = "Up-to-Date!";
 
-            StartButton.Enabled = true;
+            string DeleteFilesCheck = ServerINI.Sections[7].Keys[2].Value;
+
+            if (DeleteFilesCheck == "1")
+            {
+                for (int DefaultKey = 0; DefaultKey < ServerINI.Sections[10].Keys.Count; DefaultKey++)
+                {
+                    string FileToDelete = ServerINI.Sections[10].Keys[DefaultKey].Value;
+                    File.Delete(FileToDelete);
+                }
+
+                StartButton.Enabled = true;
+                OptionsButton.Enabled = true;
+            }
+            else
+            {
+                StartButton.Enabled = true;
+                OptionsButton.Enabled = true;
+            }
         }
 
         private void StartButton_Click(object sender, EventArgs e)
@@ -170,7 +180,7 @@ namespace FiestaLauncher
             string ServerPort = ServerINI.Sections[4].Keys[0].Value;
             string ServerSettingsMaintenanceMode = ServerINI.Sections[7].Keys[0].Value;
             string Executable = ServerINI.Sections[5].Keys[0].Value;
-            
+
             if (ServerSettingsMaintenanceMode == "1")
             {
                 MessageBox.Show("Server is currently under maintenance. Please try again later.");
@@ -182,7 +192,7 @@ namespace FiestaLauncher
 
                 try
                 {
-                   var Game = new ProcessStartInfo
+                    var Game = new ProcessStartInfo
                     {
                         FileName = $"{Executable}",
                         Arguments = $"-i {GameServerIP} -p {ServerPort}",
@@ -198,6 +208,12 @@ namespace FiestaLauncher
                     Application.Exit();
                 }
             }
+        }
+
+        private void OptionsButton_Click(object sender, EventArgs e)
+        {
+            var Options = new OptionsWindow();
+            Options.Show();
         }
     }
 }
