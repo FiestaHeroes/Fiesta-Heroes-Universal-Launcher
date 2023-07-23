@@ -1,7 +1,5 @@
 ﻿using FiestaHeroes_UL;
 using MadMilkman.Ini;
-using SharpCompress.Archive;
-using SharpCompress.Common;
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -29,7 +27,7 @@ namespace FiestaLauncher
         // Check for required files. Decided to use an array since the list was getting bigger, and it looked bulky having so many individual checks. Also, using this for the strings as well.
         string[] RequiredFiles =
         {
-            "MadMilkman.Ini.dll", "SharpCompress.dll", "./reslauncher/launcher.ini", "./reslauncher/optimize.ini"
+            "MadMilkman.Ini.dll", "UnRAR.dll", "./reslauncher/launcher.ini", "./reslauncher/optimize.ini"
         };
 
         private async void MainWindow_LoadAsync(object sender, EventArgs e)
@@ -106,25 +104,26 @@ namespace FiestaLauncher
 
                     ChangeLine($"PatchVersion={Client}", RequiredFiles[2], 5);
 
-                    IArchive archive = ArchiveFactory.Open($"{ServerFileName}{Client}{ServerExtension}");
-                    foreach (var entry in archive.Entries)
+                    var unrar = new Unrar();
+                    unrar.Open($"{ServerFileName}{Client}{ServerExtension}", Unrar.OpenMode.Extract);
+                    if (!unrar.ReadHeader())
                     {
-                        if (!entry.IsDirectory)
-                        {
-                            FileNameLabel.Text = $" Extracting {ServerFileName}{Client}{ServerExtension}...";
-                            textBox1.Text = entry.FilePath.ToString();
-                            await Task.Delay(100);
-                            entry.WriteToDirectory("./", ExtractOptions.ExtractFullPath | ExtractOptions.Overwrite);
-                        }
+                        throw new Exception($"Failed to read archive header of file '{ServerFileName}{Client}{ServerExtension}'.");
                     }
 
-                    if (archive.IsComplete)
+                    unrar.ExtractionProgress += (s, e) =>
                     {
-                        archive.Dispose();
-                        File.Delete($"{ServerFileName}{Client}{ServerExtension}");
-                        DownloadProgressLabel.ResetText();
-                        textBox1.Clear();
-                    }
+                        FileNameLabel.Text = $" Extracting {ServerFileName}{Client}{ServerExtension}...";
+                        textBox1.Text = e.FileName.ToString();
+                    };
+
+                    unrar.ExtractToDirectory("./");
+                    unrar.Close();
+                    unrar.Dispose();
+
+                    File.Delete($"{ServerFileName}{Client}{ServerExtension}");
+                    DownloadProgressLabel.ResetText();
+                    textBox1.Clear();
                 }
             }
         }
