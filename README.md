@@ -5,7 +5,7 @@
   Universal Launcher <img src="https://i.imgur.com/KuPp7CR.png" width = "32" height="32"></a>
   <br>  
   <img src="https://i.imgur.com/0GOTzNm.gif"></a>
-  <h5><center>Built with <a href="https://github.com/adamhathcock/sharpcompress">SharpCompress</a> and <a href="https://github.com/MarioZ/MadMilkman.Ini">MadMilkman.Ini</a></center></h5>
+  <h5><center>Built with <a href="https://www.rarlab.com/rar_add.htm">UnRAR</a> and <a href="https://github.com/MarioZ/MadMilkman.Ini">MadMilkman.Ini</a></center></h5>
 </h1>
 
 ## Features
@@ -43,7 +43,7 @@ You will need to place the following files in the root directory of your client.
 ```bash
 FiestaHeroes_UL.exe
 MadMilkman.Ini.dll
-SharpCompress.dll
+UnRAR.dll
 ```
 
 Afterward, you must also copy this folder into your root directory, ensuring that you maintain the folder structure by copying and pasting the folder.
@@ -82,8 +82,7 @@ Banner=https://archive.fiestaheroes.com/_Tools/fhul/fhul.jpg
 ; The FileName pertains to the start of the archive name. When creating your patches, append the version number after the FileName. For instance: patch1.rar. 
 FileName=patch
 
-; When creating the archive, it is essential to use RAR4 format (This option can be selected in WinRAR during the creation of the archive).
-; Technically, you can assign any file extension of your preference, as long as it's still created with the RAR4 format. For instance, you may choose to use ".xkl" as an extension.
+; You can assign any file extension of your preference. For instance, you may choose to use ".xkl" as an extension.
 Extension=.rar
 
 [Version]
