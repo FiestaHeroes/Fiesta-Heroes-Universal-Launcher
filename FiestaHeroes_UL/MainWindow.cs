@@ -1,6 +1,4 @@
-﻿using FiestaHeroes_UL;
-using MadMilkman.Ini;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
@@ -9,6 +7,8 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FiestaHeroes_UL;
+using MadMilkman.Ini;
 
 namespace FiestaLauncher
 {
@@ -105,19 +105,18 @@ namespace FiestaLauncher
                     ChangeLine($"PatchVersion={Client}", RequiredFiles[2], 5);
 
                     var unrar = new Unrar();
-                    unrar.Open($"{ServerFileName}{Client}{ServerExtension}", Unrar.OpenMode.Extract);
-                    if (!unrar.ReadHeader())
-                    {
-                        throw new Exception($"Failed to read archive header of file '{ServerFileName}{Client}{ServerExtension}'.");
-                    }
-
                     unrar.ExtractionProgress += (s, e) =>
                     {
                         FileNameLabel.Text = $" Extracting {ServerFileName}{Client}{ServerExtension}...";
                         textBox1.Text = e.FileName.ToString();
                     };
 
-                    unrar.ExtractToDirectory("./");
+                    unrar.Open($"{ServerFileName}{Client}{ServerExtension}", Unrar.OpenMode.Extract);
+                    while (unrar.ReadHeader())
+                    {
+                        unrar.ExtractToDirectory("./");
+                    }
+
                     unrar.Close();
                     unrar.Dispose();
 
