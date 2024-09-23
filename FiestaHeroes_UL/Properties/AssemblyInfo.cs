@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("https://fiestaheroes.com/")]
 [assembly: AssemblyProduct("FH: Universal Launcher")]
-[assembly: AssemblyCopyright("Fiesta Heroes Copyright © 2023")]
+[assembly: AssemblyCopyright("Fiesta Heroes Copyright © 2024")]
 [assembly: AssemblyTrademark("xkl")]
 [assembly: AssemblyCulture("")]
 

@@ -76,7 +76,7 @@ Name=FH: Universal Launcher
 
 ; Image resolution: 500x95
 ; If this URL becomes invalid, the launcher will not display any image.
-Banner=https://archive.fiestaheroes.com/_Tools/fhul/fhul.jpg
+Banner=https://fiestaheroes.com/images/fhul.jpg
 
 [Archive Settings]
 ; The FileName pertains to the start of the archive name. When creating your patches, append the version number after the FileName. For instance: patch1.rar. 
@@ -132,8 +132,6 @@ File=ressystem/MobInfoServer.shn
 #### Notes:
 Ensure to maintain the identical folder structure as your client when creating your patch archive.
 Suppose you intend to patch the ```ItemInfo.shn``` file, for instance. In that case, you must ensure that your patch1.rar (Example) file appears as follows: ```ressystem/ItemInfo.shn```.
-
-Also, if you don't know how to enable RAR4 compression, here is a quick [tutorial](https://techdows.com/2017/08/winrar-use-rar4-format-default-instead-rar-5-0.html).
 
 <h2 align="center">
   <br>

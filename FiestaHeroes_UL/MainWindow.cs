@@ -104,25 +104,35 @@ namespace FiestaLauncher
 
                     ChangeLine($"PatchVersion={Client}", RequiredFiles[2], 5);
 
-                    var unrar = new Unrar();
-                    unrar.ExtractionProgress += (s, e) =>
+                    FileNameLabel.Text = $" Extracting {ServerFileName}{Client}{ServerExtension}...";
+
+                    // Run the extraction process on a background thread
+                    await Task.Run(() =>
                     {
-                        FileNameLabel.Text = $" Extracting {ServerFileName}{Client}{ServerExtension}...";
-                        textBox1.Text = e.FileName.ToString();
-                    };
+                        var unrar = new Unrar();
+                        unrar.ExtractionProgress += (s, e) =>
+                        {
+                            // Update the extraction label on the UI thread
+                            this.Invoke((Action)(() =>
+                            {
+                                extractionLabel.Text = e.FileName;
+                            }));
+                        };
 
-                    unrar.Open($"{ServerFileName}{Client}{ServerExtension}", Unrar.OpenMode.Extract);
-                    while (unrar.ReadHeader())
-                    {
-                        unrar.ExtractToDirectory("./");
-                    }
+                        unrar.Open($"{ServerFileName}{Client}{ServerExtension}", Unrar.OpenMode.Extract);
+                        while (unrar.ReadHeader())
+                        {
+                            unrar.ExtractToDirectory("./");
+                        }
 
-                    unrar.Close();
-                    unrar.Dispose();
+                        unrar.Close();
+                        unrar.Dispose();
+                    });
 
+                    // After extraction completes, continue on the main thread
                     File.Delete($"{ServerFileName}{Client}{ServerExtension}");
                     DownloadProgressLabel.ResetText();
-                    textBox1.Clear();
+                    extractionLabel.Text = null;
                 }
             }
         }

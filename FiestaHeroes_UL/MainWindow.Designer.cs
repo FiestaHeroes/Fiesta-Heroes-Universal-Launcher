@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.BannerImage = new System.Windows.Forms.PictureBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.DownloadProgressLabel = new System.Windows.Forms.Label();
             this.FileNameLabel = new System.Windows.Forms.Label();
             this.DownloadProgress = new System.Windows.Forms.ProgressBar();
@@ -39,6 +38,7 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.StartButton = new System.Windows.Forms.Button();
             this.OptionsButton = new System.Windows.Forms.Button();
+            this.extractionLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.BannerImage)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -55,7 +55,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.extractionLabel);
             this.groupBox1.Controls.Add(this.DownloadProgressLabel);
             this.groupBox1.Controls.Add(this.FileNameLabel);
             this.groupBox1.Controls.Add(this.DownloadProgress);
@@ -66,16 +66,6 @@
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Client Updates";
-            // 
-            // textBox1
-            // 
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Location = new System.Drawing.Point(6, 80);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(464, 13);
-            this.textBox1.TabIndex = 5;
-            this.textBox1.TabStop = false;
             // 
             // DownloadProgressLabel
             // 
@@ -118,7 +108,7 @@
             this.toolStripStatusLabel1.ForeColor = System.Drawing.SystemColors.ControlDark;
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(174, 17);
-            this.toolStripStatusLabel1.Text = "Fiesta Heroes Copyright © 2023";
+            this.toolStripStatusLabel1.Text = "Fiesta Heroes Copyright © 2024";
             // 
             // StartButton
             // 
@@ -141,6 +131,14 @@
             this.OptionsButton.Text = "Options";
             this.OptionsButton.UseVisualStyleBackColor = true;
             this.OptionsButton.Click += new System.EventHandler(this.OptionsButton_Click);
+            // 
+            // extractionLabel
+            // 
+            this.extractionLabel.AutoSize = true;
+            this.extractionLabel.Location = new System.Drawing.Point(6, 77);
+            this.extractionLabel.Name = "extractionLabel";
+            this.extractionLabel.Size = new System.Drawing.Size(0, 14);
+            this.extractionLabel.TabIndex = 9;
             // 
             // MainWindow
             // 
@@ -172,7 +170,6 @@
 
         private System.Windows.Forms.PictureBox BannerImage;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label DownloadProgressLabel;
         private System.Windows.Forms.Label FileNameLabel;
         private System.Windows.Forms.ProgressBar DownloadProgress;
@@ -180,6 +177,7 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.Button StartButton;
         private System.Windows.Forms.Button OptionsButton;
+        private System.Windows.Forms.Label extractionLabel;
     }
 }
 
